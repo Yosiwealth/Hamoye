@@ -1,0 +1,26 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+%matplotlib inline
+
+data = pd.read_csv('fuel.csv')
+data.head()
+data.info()
+
+
+data.fuel_mmbtu_per_unit.describe()
+
+
+from scipy.stats import kurtosis, skew
+kurtosis(data.fuel_qty_burned)
+skew(data.fuel_qty_burned)
+
+
+data.isnull().sum()
+data.shape
+
+
+data.groupby('fuel_type_code_pudl')['fuel_cost_per_unit_burned'].mean()
+data.groupby('report_year')['fuel_cost_per_unit_delivered'].sum()
+data.groupby('report_year')['fuel_cost_per_unit_delivered'].sum().max()
+data[data['fuel_type_code_pudl'] == 'coal'].groupby('report_year')['fuel_cost_per_unit_burned'].sum()
